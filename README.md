@@ -25,6 +25,7 @@ RPC: 48137
 
 servacer.ggtm.eu:48537
 lenonine.ggtm.eu:48537
+starincl.ggtm.eu:48537
 
 **07. Minimum transaction fee** (src/CryptoNoteConfig.h)
 
