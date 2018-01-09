@@ -2,7 +2,7 @@ This is the reference code for the [Ncoin](http://ncoin.ggtm.eu) CryptoCurrency.
 
 **01. Total money supply** (src/CryptoNoteConfig.h)
 
-48.484.848.484,00000000 NCN
+48.484.848.484,00000000 N
 
 **02. Emission curve** (src/CryptoNoteConfig.h)
 
