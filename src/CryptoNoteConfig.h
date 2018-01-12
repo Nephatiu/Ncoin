@@ -110,6 +110,7 @@ const std::initializer_list<const char*> SEED_NODES = {
   //"your_seed_ip2.com:48537",
   "servacer.ggtm.eu:48537",
   "lenonine.ggtm.eu:48537",
+  "starincl.ggtm.eu:48537",
 };
 
 struct CheckpointData {
