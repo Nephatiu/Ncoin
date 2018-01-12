@@ -23,7 +23,7 @@ RPC: 48137
 
 **06. Seed nodes** (src/CryptoNoteConfig.h)
 
-servacer.ggtm.eu:48537
+home.ggtm.eu:48537
 lenonine.ggtm.eu:48537
 starincl.ggtm.eu:48537
 

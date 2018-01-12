@@ -108,7 +108,7 @@ const char     P2P_STAT_TRUSTED_PUB_KEY[]                    = "8f80f9a5a434a9f1
 const std::initializer_list<const char*> SEED_NODES = {
   //"your_seed_ip1.com:48537",
   //"your_seed_ip2.com:48537",
-  "servacer.ggtm.eu:48537",
+  "home.ggtm.eu:48537",
   "lenonine.ggtm.eu:48537",
   "starincl.ggtm.eu:48537",
 };
