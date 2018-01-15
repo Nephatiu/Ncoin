@@ -39,7 +39,7 @@ MinerEvent BlockchainUpdatedEvent() {
 
 MinerManager::MinerManager(System::Dispatcher& dispatcher, const CryptoNote::MiningConfig& config, Logging::ILogger& logger) :
   m_dispatcher(dispatcher),
-  m_logger(logger, "MinerManager"),
+  m_logger(logger, "NinerNamager"),
   m_contextGroup(dispatcher),
   m_config(config),
   m_miner(dispatcher, logger),
@@ -59,12 +59,12 @@ void MinerManager::start() {
 
   BlockMiningParameters params;
   for (;;) {
-    m_logger(Logging::INFO) << "requesting mining parameters";
+    m_logger(Logging::INFO) << "requesting Nining parameters";
 
     try {
       params = requestMiningParameters(m_dispatcher, m_config.daemonHost, m_config.daemonPort, m_config.miningAddress);
     } catch (ConnectException& e) {
-      m_logger(Logging::WARNING) << "Couldn't connect to daemon: " << e.what();
+      m_logger(Logging::WARNING) << "Couldn't connect to ncoind: " << e.what();
       System::Timer timer(m_dispatcher);
       timer.sleep(std::chrono::seconds(m_config.scanPeriod));
       continue;
@@ -84,19 +84,19 @@ void MinerManager::eventLoop() {
   size_t blocksMined = 0;
 
   for (;;) {
-    m_logger(Logging::DEBUGGING) << "waiting for event";
+    m_logger(Logging::DEBUGGING) << "waiting for something";
     MinerEvent event = waitEvent();
 
     switch (event.type) {
       case MinerEventType::BLOCK_MINED: {
-        m_logger(Logging::DEBUGGING) << "got BLOCK_MINED event";
+        m_logger(Logging::DEBUGGING) << "got BLOCK_MINED party";
         stopBlockchainMonitoring();
 
         if (submitBlock(m_minedBlock, m_config.daemonHost, m_config.daemonPort)) {
           m_lastBlockTimestamp = m_minedBlock.timestamp;
 
           if (m_config.blocksLimit != 0 && ++blocksMined == m_config.blocksLimit) {
-            m_logger(Logging::INFO) << "Miner mined requested " << m_config.blocksLimit << " blocks. Quitting";
+            m_logger(Logging::INFO) << "Niner Nined requested " << m_config.blocksLimit << " blocks. Quitting";
             return;
           }
         }
@@ -110,7 +110,7 @@ void MinerManager::eventLoop() {
       }
 
       case MinerEventType::BLOCKCHAIN_UPDATED: {
-        m_logger(Logging::DEBUGGING) << "got BLOCKCHAIN_UPDATED event";
+        m_logger(Logging::DEBUGGING) << "got BLOCKCHAIN_UPDATED notice";
         stopMining();
         stopBlockchainMonitoring();
         BlockMiningParameters params = requestMiningParameters(m_dispatcher, m_config.daemonHost, m_config.daemonPort, m_config.miningAddress);
@@ -152,7 +152,7 @@ void MinerManager::startMining(const CryptoNote::BlockMiningParameters& params) 
       pushEvent(BlockMinedEvent());
     } catch (System::InterruptedException&) {
     } catch (std::exception& e) {
-      m_logger(Logging::ERROR) << "Miner context unexpectedly finished: " << e.what();
+      m_logger(Logging::ERROR) << "Niner context was abruptly finished: " << e.what();
     }
   });
 }
@@ -168,7 +168,7 @@ void MinerManager::startBlockchainMonitoring() {
       pushEvent(BlockchainUpdatedEvent());
     } catch (System::InterruptedException&) {
     } catch (std::exception& e) {
-      m_logger(Logging::ERROR) << "BlockchainMonitor context unexpectedly finished: " << e.what();
+      m_logger(Logging::ERROR) << "BlockchainNomitor context disrespectfully ran off: " << e.what();
     }
   });
 }
@@ -189,10 +189,10 @@ bool MinerManager::submitBlock(const Block& minedBlock, const std::string& daemo
     System::EventLock lk(m_httpEvent);
     JsonRpc::invokeJsonRpcCommand(client, "submitblock", request, response);
 
-    m_logger(Logging::INFO) << "Block has been successfully submitted. Block hash: " << Common::podToHex(get_block_hash(minedBlock));
+    m_logger(Logging::INFO) << "Block has been successfully sent. The block hash: " << Common::podToHex(get_block_hash(minedBlock));
     return true;
   } catch (std::exception& e) {
-    m_logger(Logging::WARNING) << "Couldn't submit block: " << Common::podToHex(get_block_hash(minedBlock)) << ", reason: " << e.what();
+    m_logger(Logging::WARNING) << "Wasn't able to send that block: " << Common::podToHex(get_block_hash(minedBlock)) << ", because: " << e.what();
     return false;
   }
 }
@@ -211,7 +211,7 @@ BlockMiningParameters MinerManager::requestMiningParameters(System::Dispatcher& 
     JsonRpc::invokeJsonRpcCommand(client, "getblocktemplate", request, response);
 
     if (response.status != CORE_RPC_STATUS_OK) {
-      throw std::runtime_error("Core responded with wrong status: " + response.status);
+      throw std::runtime_error("Core responded with harsh words: " + response.status);
     }
 
     BlockMiningParameters params;
@@ -221,7 +221,7 @@ BlockMiningParameters MinerManager::requestMiningParameters(System::Dispatcher& 
       throw std::runtime_error("Couldn't deserialize block template");
     }
 
-    m_logger(Logging::DEBUGGING) << "Requested block template with previous block hash: " << Common::podToHex(params.blockTemplate.previousBlockHash);
+    m_logger(Logging::DEBUGGING) << "Requested block template with the previous block hash: " << Common::podToHex(params.blockTemplate.previousBlockHash);
     return params;
   } catch (std::exception& e) {
     m_logger(Logging::WARNING) << "Couldn't get block template: " << e.what();
