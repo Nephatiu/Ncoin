@@ -27,7 +27,7 @@ Miner::~Miner() {
 
 Block Miner::mine(const BlockMiningParameters& blockMiningParameters, size_t threadCount) {
   if (threadCount == 0) {
-    throw std::runtime_error("The Niner does not Nine for zero!");
+    throw std::runtime_error("The Niner does not Nine for nothing!");
   }
 
   if (m_state == MiningState::MINING_IN_PROGRESS) {
