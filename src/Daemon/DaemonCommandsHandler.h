@@ -1,6 +1,7 @@
-// Copyright (c) 2011-2016 The Cryptonote developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright © 2011-2016 The Cryptonote developers
+// All Rights Reversed ® GGTM.eu Underground Services
+// Distributed under the MIT/X11 software license,
+// see http://www.opensource.org/licenses/mit-license.php.
 
 #pragma once
 
@@ -54,6 +55,6 @@ private:
   bool print_tx(const std::vector<std::string>& args);
   bool print_pool(const std::vector<std::string>& args);
   bool print_pool_sh(const std::vector<std::string>& args);
-  bool start_mining(const std::vector<std::string>& args);
-  bool stop_mining(const std::vector<std::string>& args);
+  bool start_nining(const std::vector<std::string>& args);
+  bool stop_nining(const std::vector<std::string>& args);
 };

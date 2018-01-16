@@ -1,6 +1,7 @@
-// Copyright (c) 2011-2016 The Cryptonote developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright © 2011-2016 The Cryptonote developers
+// All Rights Reversed ® GGTM.eu Underground Services
+// Distributed under the MIT/X11 software license,
+// see http://www.opensource.org/licenses/mit-license.php.
 
 #include "version.h"
 
@@ -57,7 +58,7 @@ void print_genesis_tx_hex() {
   CryptoNote::BinaryArray txb = CryptoNote::toBinaryArray(tx);
   std::string tx_hex = Common::toHex(txb);
 
-  std::cout << "Insert this line into your coin configuration file as is: " << std::endl;
+  std::cout << "Insert this line into your Ncoin configuration file: " << std::endl;
   std::cout << "const char GENESIS_COINBASE_TX_HEX[] = \"" << tx_hex << "\";" << std::endl;
 
   return;
@@ -155,7 +156,7 @@ int main(int argc, char* argv[])
 
     if (!r)
       return 1;
-  
+
     auto modulePath = Common::NativePathToGeneric(argv[0]);
     auto cfgLogFile = Common::NativePathToGeneric(command_line::get_arg(vm, arg_log_file));
 
@@ -182,7 +183,7 @@ int main(int argc, char* argv[])
 
     bool testnet_mode = command_line::get_arg(vm, arg_testnet_on);
     if (testnet_mode) {
-      logger(INFO) << "Starting in testnet mode!";
+      logger(INFO, BRIGHT_RED) << "Starting in testnet mode!";
     }
 
     //create objects and link them
@@ -224,7 +225,7 @@ int main(int argc, char* argv[])
       }
     } else {
       if (!Tools::create_directories_if_necessary(coreConfig.configFolder)) {
-        throw std::runtime_error("Can't create directory: " + coreConfig.configFolder);
+        throw std::runtime_error("Unable to create directory: " + coreConfig.configFolder);
       }
     }
 
@@ -244,31 +245,31 @@ int main(int argc, char* argv[])
       logger(ERROR, BRIGHT_RED) << "Failed to initialize p2p server.";
       return 1;
     }
-    logger(INFO) << "P2p server initialized OK";
+    logger(INFO, BRIGHT_GREEN) << "P2p server initialized OK";
 
-    //logger(INFO) << "Initializing core rpc server...";
-    //if (!rpc_server.init(vm)) {
-    //  logger(ERROR, BRIGHT_RED) << "Failed to initialize core rpc server.";
-    //  return 1;
-    //}
-    // logger(INFO, BRIGHT_GREEN) << "Core rpc server initialized OK on port: " << rpc_server.get_binded_port();
-
-    // initialize core here
-    logger(INFO) << "Initializing core...";
-    if (!ccore.init(coreConfig, minerConfig, true)) {
-      logger(ERROR, BRIGHT_RED) << "Failed to initialize core";
+    logger(INFO) << "Initializing Ncore rpc server...";
+    if (!rpc_server.init(vm)) {
+      logger(ERROR, BRIGHT_RED) << "Failed to initialize Ncore rpc server.";
       return 1;
     }
-    logger(INFO) << "Core initialized OK";
+    logger(INFO, BRIGHT_GREEN) << "Ncore rpc server initialized OK on port: " << rpc_server.get_binded_port();
+
+    initialize core here
+    logger(INFO) << "Initializing Ncore...";
+    if (!ccore.init(coreConfig, minerConfig, true)) {
+      logger(ERROR, BRIGHT_RED) << "Failed to initialize Ncore";
+      return 1;
+    }
+    logger(INFO, BRIGHT_GREEN) << "Ncore initialized OK";
 
     // start components
     if (!command_line::has_arg(vm, arg_console)) {
       dch.start_handling();
     }
 
-    logger(INFO) << "Starting core rpc server on address " << rpcConfig.getBindAddress();
+    logger(INFO) << "Starting Ncore rpc server on address " << rpcConfig.getBindAddress();
     rpcServer.start(rpcConfig.bindIp, rpcConfig.bindPort);
-    logger(INFO) << "Core rpc server started ok";
+    logger(INFO, BRIGHT_GREEN) << "Ncore rpc server started ok";
 
     Tools::SignalHandler::install([&dch, &p2psrv] {
       dch.stop_handling();
@@ -282,11 +283,11 @@ int main(int argc, char* argv[])
     dch.stop_handling();
 
     //stop components
-    logger(INFO) << "Stopping core rpc server...";
+    logger(INFO) << "Stopping Ncore rpc server...";
     rpcServer.stop();
 
     //deinitialize components
-    logger(INFO) << "Deinitializing core...";
+    logger(INFO) << "Deinitializing Ncore...";
     ccore.deinit();
     logger(INFO) << "Deinitializing p2p...";
     p2psrv.deinit();

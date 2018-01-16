@@ -1,6 +1,7 @@
-// Copyright (c) 2011-2016 The Cryptonote developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright © 2011-2016 The Cryptonote developers
+// All Rights Reversed ® GGTM.eu Underground Services
+// Distributed under the MIT/X11 software license,
+// see http://www.opensource.org/licenses/mit-license.php.
 
 #include "DaemonCommandsHandler.h"
 
@@ -24,19 +25,19 @@ DaemonCommandsHandler::DaemonCommandsHandler(CryptoNote::core& core, CryptoNote:
   m_core(core), m_srv(srv), logger(log, "daemon"), m_logManager(log) {
   m_consoleHandler.setHandler("exit", boost::bind(&DaemonCommandsHandler::exit, this, _1), "Shutdown the daemon");
   m_consoleHandler.setHandler("help", boost::bind(&DaemonCommandsHandler::help, this, _1), "Show this help");
-  m_consoleHandler.setHandler("print_pl", boost::bind(&DaemonCommandsHandler::print_pl, this, _1), "Print peer list");
-  m_consoleHandler.setHandler("print_cn", boost::bind(&DaemonCommandsHandler::print_cn, this, _1), "Print connections");
-  m_consoleHandler.setHandler("print_bc", boost::bind(&DaemonCommandsHandler::print_bc, this, _1), "Print blockchain info in a given blocks range, print_bc <begin_height> [<end_height>]");
+  m_consoleHandler.setHandler("print_pl", boost::bind(&DaemonCommandsHandler::print_pl, this, _1), "Show peer list");
+  m_consoleHandler.setHandler("print_cn", boost::bind(&DaemonCommandsHandler::print_cn, this, _1), "Show connections");
+  m_consoleHandler.setHandler("print_bc", boost::bind(&DaemonCommandsHandler::print_bc, this, _1), "Show blockchain info in a given blocks range, print_bc <begin_height> [<end_height>]");
   //m_consoleHandler.setHandler("print_bci", boost::bind(&DaemonCommandsHandler::print_bci, this, _1));
   //m_consoleHandler.setHandler("print_bc_outs", boost::bind(&DaemonCommandsHandler::print_bc_outs, this, _1));
-  m_consoleHandler.setHandler("print_block", boost::bind(&DaemonCommandsHandler::print_block, this, _1), "Print block, print_block <block_hash> | <block_height>");
-  m_consoleHandler.setHandler("print_tx", boost::bind(&DaemonCommandsHandler::print_tx, this, _1), "Print transaction, print_tx <transaction_hash>");
-  m_consoleHandler.setHandler("start_mining", boost::bind(&DaemonCommandsHandler::start_mining, this, _1), "Start mining for specified address, start_mining <addr> [threads=1]");
-  m_consoleHandler.setHandler("stop_mining", boost::bind(&DaemonCommandsHandler::stop_mining, this, _1), "Stop mining");
-  m_consoleHandler.setHandler("print_pool", boost::bind(&DaemonCommandsHandler::print_pool, this, _1), "Print transaction pool (long format)");
-  m_consoleHandler.setHandler("print_pool_sh", boost::bind(&DaemonCommandsHandler::print_pool_sh, this, _1), "Print transaction pool (short format)");
-  m_consoleHandler.setHandler("show_hr", boost::bind(&DaemonCommandsHandler::show_hr, this, _1), "Start showing hash rate");
-  m_consoleHandler.setHandler("hide_hr", boost::bind(&DaemonCommandsHandler::hide_hr, this, _1), "Stop showing hash rate");
+  m_consoleHandler.setHandler("print_block", boost::bind(&DaemonCommandsHandler::print_block, this, _1), "Show block, print_block <block_hash> | <block_height>");
+  m_consoleHandler.setHandler("print_tx", boost::bind(&DaemonCommandsHandler::print_tx, this, _1), "Show transaction, print_tx <transaction_hash>");
+  m_consoleHandler.setHandler("start_nining", boost::bind(&DaemonCommandsHandler::start_nining, this, _1), "Start Nining for a specified address, start_nining <addr> [threads=1]");
+  m_consoleHandler.setHandler("stop_nining", boost::bind(&DaemonCommandsHandler::stop_nining, this, _1), "Stop Nining");
+  m_consoleHandler.setHandler("print_pool", boost::bind(&DaemonCommandsHandler::print_pool, this, _1), "Show transaction pool (long format)");
+  m_consoleHandler.setHandler("print_pool_sh", boost::bind(&DaemonCommandsHandler::print_pool_sh, this, _1), "Show transaction pool (short format)");
+  m_consoleHandler.setHandler("show_hr", boost::bind(&DaemonCommandsHandler::show_hr, this, _1), "Start showing hash-rate");
+  m_consoleHandler.setHandler("hide_hr", boost::bind(&DaemonCommandsHandler::hide_hr, this, _1), "Stop showing hash-rate");
   m_consoleHandler.setHandler("set_log", boost::bind(&DaemonCommandsHandler::set_log, this, _1), "set_log <level> - Change current log level, <level> is a number 0-4");
 }
 
@@ -75,7 +76,7 @@ bool DaemonCommandsHandler::show_hr(const std::vector<std::string>& args)
 {
   if (!m_core.get_miner().is_mining())
   {
-    std::cout << "Mining is not started. You need to start mining before you can see hash rate." << ENDL;
+    std::cout << "Nining has not started. You need to start Nining before you can see a hash-rate." << ENDL;
   } else
   {
     m_core.get_miner().do_print_hashrate(true);
@@ -275,15 +276,15 @@ bool DaemonCommandsHandler::print_pool_sh(const std::vector<std::string>& args)
   return true;
 }
 //--------------------------------------------------------------------------------
-bool DaemonCommandsHandler::start_mining(const std::vector<std::string> &args) {
+bool DaemonCommandsHandler::start_nining(const std::vector<std::string> &args) {
   if (!args.size()) {
-    std::cout << "Please, specify wallet address to mine for: start_mining <addr> [threads=1]" << std::endl;
+    std::cout << "Please, specify wallet address to Nine for: start_nining <addr> [threads=1]" << std::endl;
     return true;
   }
 
   CryptoNote::AccountPublicAddress adr;
   if (!m_core.currency().parseAccountAddressString(args.front(), adr)) {
-    std::cout << "target account address has wrong format" << std::endl;
+    std::cout << "target account address has a wrong format" << std::endl;
     return true;
   }
 
@@ -298,7 +299,7 @@ bool DaemonCommandsHandler::start_mining(const std::vector<std::string> &args) {
 }
 
 //--------------------------------------------------------------------------------
-bool DaemonCommandsHandler::stop_mining(const std::vector<std::string>& args) {
+bool DaemonCommandsHandler::stop_nining(const std::vector<std::string>& args) {
   m_core.get_miner().stop();
   return true;
 }
