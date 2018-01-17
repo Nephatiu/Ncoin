@@ -1,0 +1,13 @@
+#/bin/bash
+#
+# All Rights Reversed ® GGTM.eu Underground Services
+
+ncoinversion=$( cat ../Ncoin/version.ncoin )
+ncoindate=$( date +%Y%M%d )
+ncointime=$( date +%H%M%S )
+echo "#define BUILD_COMMIT_ID \"$ncointime\"" >../Ncoin/src/version.h.in
+echo "#define PROJECT_VERSION \"%ncoinversion%\"" >>../Ncoin/src/version.h.in
+echo "#define PROJECT_VERSION_BUILD_NO \"$ncoindate\"" >>../Ncoin/src/version.h.in
+echo "#define PROJECT_VERSION_LONG PROJECT_VERSION \".\" PROJECT_VERSION_BUILD_NO \"(\" BUILD_COMMIT_ID \")\"" >>../Ncoin/src/version.h.in
+echo $ncoinversion"."$ncoindate"."$ncointime > lastbuild.ver
+
