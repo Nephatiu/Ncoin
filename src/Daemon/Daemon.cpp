@@ -248,13 +248,13 @@ int main(int argc, char* argv[])
     logger(INFO, BRIGHT_GREEN) << "P2p server initialized OK";
 
     logger(INFO) << "Initializing Ncore rpc server...";
-    if (!rpc_server.init(vm)) {
-      logger(ERROR, BRIGHT_RED) << "Failed to initialize Ncore rpc server.";
-      return 1;
-    }
-    logger(INFO, BRIGHT_GREEN) << "Ncore rpc server initialized OK on port: " << rpc_server.get_binded_port();
+    //if (!rpcServer.init(vm)) {
+    //  logger(ERROR, BRIGHT_RED) << "Failed to initialize Ncore rpc server.";
+    //  return 1;
+    //}
+    //logger(INFO, BRIGHT_GREEN) << "Ncore rpc server initialized OK on port: " << rpc_server.get_binded_port();
 
-    initialize core here
+    // initialize core here
     logger(INFO) << "Initializing Ncore...";
     if (!ccore.init(coreConfig, minerConfig, true)) {
       logger(ERROR, BRIGHT_RED) << "Failed to initialize Ncore";
