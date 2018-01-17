@@ -1,9 +1,9 @@
 @echo off
 setlocal
-pushd Q:\Gitz\Ncoin\
+pushd ..\Ncoin
 git pull >NUL
 popd
-set /p ncoinversion=<Q:\Gitz\Ncoin\version.ncoin
+set /p ncoinversion=<..\Ncoin\version.ncoin
 set dd=%DATE:~0,2%
 set mmm=%DATE:~2,3%
 if "%mmm%" == "Jan" (
@@ -51,13 +51,13 @@ set s=%TIME:~6,2%
 rem echo tIs dag %dd% van de maand %mm% (%mmm%) in et jaar %yyyy%, ook wel afgekort als %yy%.
 rem echo Et is %h% uur, %m% minuten en euh... %s% seconden!
 rem echo En Ncoin is versie: %ncoinversion%!
-echo #define BUILD_COMMIT_ID ^"%h%%m%%s%^" >Q:\Gitz\Ncoin\src\version.h.in
-echo #define PROJECT_VERSION ^"%ncoinversion%^" >>Q:\Gitz\Ncoin\src\version.h.in
-echo #define PROJECT_VERSION_BUILD_NO "%yyyy%%mm%%dd%" >>Q:\Gitz\Ncoin\src\version.h.in
-echo #define PROJECT_VERSION_LONG PROJECT_VERSION ^".^" PROJECT_VERSION_BUILD_NO ^"^(^" BUILD_COMMIT_ID ^"^)^" >>Q:\Gitz\Ncoin\src\version.h.in
+echo #define BUILD_COMMIT_ID ^"%h%%m%%s%^" >..\Ncoin\src\version.h.in
+echo #define PROJECT_VERSION ^"%ncoinversion%^" >>..\Ncoin\src\version.h.in
+echo #define PROJECT_VERSION_BUILD_NO "%yyyy%%mm%%dd%" >>..\Ncoin\src\version.h.in
+echo #define PROJECT_VERSION_LONG PROJECT_VERSION ^".^" PROJECT_VERSION_BUILD_NO ^"^(^" BUILD_COMMIT_ID ^"^)^" >>..\Ncoin\src\version.h.in
 rem echo ^"version.h.in^" has been rebuild...
 rem echo Comitting...
-pushd Q:\Gitz\Ncoin
+pushd ..\Ncoin
 git commit -a -m "AutoReversioned" >NUL
 git push >NUL
 popd
