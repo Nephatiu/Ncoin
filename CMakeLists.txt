@@ -3,6 +3,24 @@ cmake_minimum_required(VERSION 2.8.6)
 set(VERSION "0.1")
 # $Format:Packaged from commit %H%nset(COMMIT %h)%nset(REFS "%d")$
 
+if(MSVC)
+    execute_process(COMMAND cmaketime.cmd
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+	
+	file(STRINGS lastbuild.ver NCOIN_VERSION)
+
+	message("This is Ncoin build v" ${NCOIN_VERSION})
+endif(MSVC)
+
+if(NOT MSVC)
+	execute_process(COMMAND ./cmaketime
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+	file(STRINGS lastbuild.ver NCOIN_VERSION)
+
+	message("This is Ncoin build v" ${NCOIN_VERSION})
+endif()
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_CONFIGURATION_TYPES Debug RelWithDebInfo Release CACHE TYPE INTERNAL)
 set(CMAKE_SKIP_INSTALL_RULES ON)
