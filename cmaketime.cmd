@@ -45,7 +45,7 @@ if "%mmm%" == "Dec" (
 set yy=%DATE:~5,2%
 set yyyy=20%DATE:~5,2%
 set h=%TIME:~0,2%
-if "%h%" LEQ "9" set h=0%h:~1,1%
+if %h% LEQ 9 set h=0%h:~1,1%
 set m=%TIME:~3,2%
 set s=%TIME:~6,2%
 rem echo tIs dag %dd% van de maand %mm% (%mmm%) in et jaar %yyyy%, ook wel afgekort als %yy%.
