@@ -1,6 +1,7 @@
-// Copyright (c) 2011-2016 The Cryptonote developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright © 2011-2016 The Cryptonote developers
+// All Rights Reversed ® GGTM.eu Underground Services
+// Distributed under the MIT/X11 software license,
+// see http://www.opensource.org/licenses/mit-license.php.
 
 #pragma once
 
@@ -26,7 +27,7 @@ public:
   HttpClient(System::Dispatcher& dispatcher, const std::string& address, uint16_t port);
   ~HttpClient();
   void request(const HttpRequest& req, HttpResponse& res);
-  
+
   bool isConnected() const;
 
 private:
@@ -56,7 +57,7 @@ void invokeJsonCommand(HttpClient& client, const std::string& url, const Request
   }
 
   if (!loadFromJson(res, hres.getBody())) {
-    throw std::runtime_error("Failed to parse JSON response");
+    throw std::runtime_error("Failed to parse the JSON response received");
   }
 }
 
@@ -70,7 +71,7 @@ void invokeBinaryCommand(HttpClient& client, const std::string& url, const Reque
   client.request(hreq, hres);
 
   if (!loadFromBinaryKeyValue(res, hres.getBody())) {
-    throw std::runtime_error("Failed to parse binary response");
+    throw std::runtime_error("Failed to parse the binary response received");
   }
 }
 

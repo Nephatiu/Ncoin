@@ -1,6 +1,7 @@
-// Copyright (c) 2011-2016 The Cryptonote developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright © 2011-2016 The Cryptonote developers
+// All Rights Reversed ® GGTM.eu Underground Services
+// Distributed under the MIT/X11 software license,
+// see http://www.opensource.org/licenses/mit-license.php.
 
 #include "HttpServer.h"
 #include <boost/scope_exit.hpp>
@@ -41,17 +42,17 @@ void HttpServer::acceptLoop() {
       } catch (System::InterruptedException&) {
         throw;
       } catch (std::exception&) {
-        // try again
+        // try and try again
       }
     }
 
     m_connections.insert(&connection);
-    BOOST_SCOPE_EXIT_ALL(this, &connection) { 
+    BOOST_SCOPE_EXIT_ALL(this, &connection) {
       m_connections.erase(&connection); };
 
     auto addr = connection.getPeerAddressAndPort();
 
-    logger(DEBUGGING) << "Incoming connection from " << addr.first.toDottedDecimal() << ":" << addr.second;
+    logger(DEBUGGING, BRIGHT_GREEN) << "Incoming connection from " << addr.first.toDottedDecimal() << ":" << addr.second;
 
     workingContextGroup.spawn(std::bind(&HttpServer::acceptLoop, this));
 
@@ -78,7 +79,7 @@ void HttpServer::acceptLoop() {
 
   } catch (System::InterruptedException&) {
   } catch (std::exception& e) {
-    logger(WARNING) << "Connection error: " << e.what();
+    logger(WARNING, BRIGHT_RED) << "Connection fail: " << e.what();
   }
 }
 

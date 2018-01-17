@@ -1,6 +1,7 @@
-// Copyright (c) 2011-2016 The Cryptonote developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright © 2011-2016 The Cryptonote developers
+// All Rights Reversed ® GGTM.eu Underground Services
+// Distributed under the MIT/X11 software license,
+// see http://www.opensource.org/licenses/mit-license.php.
 
 #pragma once
 
@@ -13,8 +14,8 @@
 
 namespace CryptoNote {
 //-----------------------------------------------
-#define CORE_RPC_STATUS_OK "OK"
-#define CORE_RPC_STATUS_BUSY "BUSY"
+#define CORE_RPC_STATUS_OK "Ok"
+#define CORE_RPC_STATUS_BUSY "Occupied"
 
 struct EMPTY_STRUCT {
   void serialize(ISerializer &s) {}
@@ -46,7 +47,7 @@ struct COMMAND_RPC_GET_BLOCKS_FAST {
 
   struct request {
     std::vector<Crypto::Hash> block_ids; //*first 10 blocks id goes sequential, next goes in pow(2,n) offset, like 2, 4, 8, 16, 32, 64 and so on, and the last one is always genesis block */
-    
+
     void serialize(ISerializer &s) {
       serializeAsBinary(block_ids, "block_ids", s);
     }
@@ -84,7 +85,7 @@ struct COMMAND_RPC_GET_TRANSACTIONS {
     void serialize(ISerializer &s) {
       KV_MEMBER(txs_as_hex)
       KV_MEMBER(missed_tx)
-      KV_MEMBER(status)    
+      KV_MEMBER(status)
     }
   };
 };
@@ -143,7 +144,7 @@ struct COMMAND_RPC_GET_POOL_CHANGES_LITE {
 
 //-----------------------------------------------
 struct COMMAND_RPC_GET_TX_GLOBAL_OUTPUTS_INDEXES {
-  
+
   struct request {
     Crypto::Hash txid;
 

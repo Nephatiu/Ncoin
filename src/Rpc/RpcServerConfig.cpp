@@ -1,6 +1,7 @@
-// Copyright (c) 2011-2016 The Cryptonote developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright © 2011-2016 The Cryptonote developers
+// All Rights Reversed ® GGTM.eu Underground Services
+// Distributed under the MIT/X11 software license,
+// see http://www.opensource.org/licenses/mit-license.php.
 
 #include "RpcServerConfig.h"
 #include "Common/CommandLine.h"
@@ -10,7 +11,7 @@ namespace CryptoNote {
 
   namespace {
 
-    const std::string DEFAULT_RPC_IP = "127.0.0.1";
+    const std::string DEFAULT_RPC_IP = "0.0.0.0";
     const uint16_t DEFAULT_RPC_PORT = RPC_DEFAULT_PORT;
 
     const command_line::arg_descriptor<std::string> arg_rpc_bind_ip = { "rpc-bind-ip", "", DEFAULT_RPC_IP };
@@ -24,7 +25,7 @@ namespace CryptoNote {
   std::string RpcServerConfig::getBindAddress() const {
     return bindIp + ":" + std::to_string(bindPort);
   }
-  
+
   void RpcServerConfig::initOptions(boost::program_options::options_description& desc) {
     command_line::add_arg(desc, arg_rpc_bind_ip);
     command_line::add_arg(desc, arg_rpc_bind_port);

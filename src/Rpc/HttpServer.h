@@ -1,8 +1,9 @@
-// Copyright (c) 2011-2016 The Cryptonote developers
-// Distributed under the MIT/X11 software license, see the accompanying
-// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+// Copyright © 2011-2016 The Cryptonote developers
+// All Rights Reversed ® GGTM.eu Underground Services
+// Distributed under the MIT/X11 software license,
+// see http://www.opensource.org/licenses/mit-license.php.
 
-#pragma once 
+#pragma once
 
 #include <unordered_set>
 
