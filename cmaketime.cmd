@@ -61,4 +61,4 @@ pushd Q:\Gitz\Ncoin
 git commit -a -m "AutoReversioned" >NUL
 git push >NUL
 popd
-echo %ncoinversion% ^(%yyyy%%mm%%dd%.%h%%m%%s%^) >Q:\Gitz\Ncoin\lastbuild.ver
+echo %ncoinversion%.%yyyy%%mm%%dd%.%h%%m%%s% >Q:\Gitz\Ncoin\lastbuild.ver
