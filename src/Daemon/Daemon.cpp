@@ -254,7 +254,7 @@ int main(int argc, char* argv[])
     //}
     //logger(INFO, BRIGHT_GREEN) << "Ncore rpc server initialized OK on port: " << rpc_server.get_binded_port();
 
-    // initialize core here
+    // initializing core here
     logger(INFO) << "Initializing Ncore...";
     if (!ccore.init(coreConfig, minerConfig, true)) {
       logger(ERROR, BRIGHT_RED) << "Failed to initialize Ncore";
