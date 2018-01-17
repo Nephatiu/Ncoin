@@ -1,8 +1,5 @@
 @echo off
 setlocal
-pushd ..\Ncoin
-git pull >NUL
-popd
 set /p ncoinversion=<..\Ncoin\version.ncoin
 set dd=%DATE:~0,2%
 set mmm=%DATE:~2,3%
@@ -57,8 +54,4 @@ echo #define PROJECT_VERSION_BUILD_NO "%yyyy%%mm%%dd%" >>..\Ncoin\src\version.h.
 echo #define PROJECT_VERSION_LONG PROJECT_VERSION ^".^" PROJECT_VERSION_BUILD_NO ^"^(^" BUILD_COMMIT_ID ^"^)^" >>..\Ncoin\src\version.h.in
 rem echo ^"version.h.in^" has been rebuild...
 rem echo Comitting...
-pushd ..\Ncoin
-git commit -a -m "AutoReversioned" >NUL
-git push >NUL
-popd
 echo %ncoinversion%.%yyyy%%mm%%dd%.%h%%m%%s% >lastbuild.ver
