@@ -10,19 +10,28 @@
 
 #include "DaemonCommandsHandler.h"
 
+#include "Common/StdOutputStream.h"
+#include "Common/StdInputStream.h"
 #include "Common/SignalHandler.h"
 #include "Common/PathTools.h"
+#include "Common/Util.h"
+#include "Common/ScopeExit.h"
 #include "crypto/hash.h"
 #include "CryptoNoteCore/Core.h"
 #include "CryptoNoteCore/CoreConfig.h"
 #include "CryptoNoteCore/CryptoNoteTools.h"
 #include "CryptoNoteCore/Currency.h"
 #include "CryptoNoteCore/MinerConfig.h"
+#include "CryptoNoteCore/DatabaseBlockchainCache.h"
+#include "CryptoNoteCore/DatabaseBlockchainCacheFactory.h"
+#include "CryptoNoteCore/MainChainStorage.h"
 #include "CryptoNoteProtocol/CryptoNoteProtocolHandler.h"
 #include "P2p/NetNode.h"
 #include "P2p/NetNodeConfig.h"
 #include "Rpc/RpcServer.h"
 #include "Rpc/RpcServerConfig.h"
+#include "Serialization/BinaryInputStreamSerializer.h"
+#include "Serialization/BinaryOutputStreamSerializer.h"
 #include "version.h"
 
 #include "Logging/ConsoleLogger.h"
@@ -78,7 +87,7 @@ JsonValue buildLoggerConfiguration(Level level, const std::string& logfile) {
   JsonValue& consoleLogger = cfgLoggers.pushBack(JsonValue::OBJECT);
   consoleLogger.insert("type", "console");
   consoleLogger.insert("level", static_cast<int64_t>(TRACE));
-  consoleLogger.insert("pattern", "%T %L ");
+  consoleLogger.insert("pattern", "%D %T %L ");
 
   return loggerConfiguration;
 }
@@ -253,7 +262,7 @@ int main(int argc, char* argv[])
     //  return 1;
     //}
     //logger(INFO, BRIGHT_GREEN) << "Ncore rpc server initialized OK on port: " << rpc_server.get_binded_port();
-
+    logger(INFO, BRIGHT_GREEN) << "Core rpc server started ok";
     // initializing core here
     logger(INFO) << "Initializing Ncore...";
     if (!ccore.init(coreConfig, minerConfig, true)) {
@@ -292,15 +301,16 @@ int main(int argc, char* argv[])
     logger(INFO) << "Deinitializing p2p...";
     p2psrv.deinit();
 
-    ccore.set_cryptonote_protocol(NULL);
-    cprotocol.set_p2p_endpoint(NULL);
+    ccore.save();
+    ccore.set_cryptonote_protocol(nullptr);
+    cprotocol.set_p2p_endpoint(nullptr);
 
   } catch (const std::exception& e) {
     logger(ERROR, BRIGHT_RED) << "Exception: " << e.what();
     return 1;
   }
 
-  logger(INFO) << "Node stopped.";
+  logger(INFO) << "Node has stopped.";
   return 0;
 }
 

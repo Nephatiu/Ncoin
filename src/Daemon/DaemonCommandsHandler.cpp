@@ -18,6 +18,24 @@ namespace {
     std::cout << CryptoNote::storeToJson(obj) << ENDL;
     return true;
   }
+  std::string printTransactionShortInfo(const CryptoNote::CachedTransaction& transaction) {
+  std::stringstream ss;
+
+  ss << "id: " << transaction.getTransactionHash() << std::endl;
+  ss << "fee: " << transaction.getTransactionFee() << std::endl;
+  ss << "blobSize: " << transaction.getTransactionBinaryArray().size() << std::endl;
+
+  return ss.str();
+}
+
+std::string printTransactionFullInfo(const CryptoNote::CachedTransaction& transaction) {
+  std::stringstream ss;
+  ss << printTransactionShortInfo(transaction);
+  ss << "JSON: \n" << CryptoNote::storeToJson(transaction.getTransaction()) << std::endl;
+
+  return ss.str();
+}
+
 }
 
 
