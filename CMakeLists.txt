@@ -6,7 +6,7 @@ set(VERSION "0.1")
 if(MSVC)
     execute_process(COMMAND cmaketime.cmd
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-	
+
 	file(STRINGS lastbuild.ver NCOIN_VERSION)
 
 	message("This is Ncoin build v" ${NCOIN_VERSION})
@@ -30,7 +30,7 @@ enable_testing()
 # copy CTestCustom.cmake to build dir to disable long running tests in 'make test'
 configure_file(${CMAKE_SOURCE_DIR}/CTestCustom.cmake ${CMAKE_BINARY_DIR})
 
-project(CryptoNote)
+project(Ncoin-cl)
 
 include_directories(include src external "${CMAKE_BINARY_DIR}/version")
 if(APPLE)
@@ -42,8 +42,10 @@ if(MSVC)
 include_directories(src/Platform/Windows)
 elseif(APPLE)
 include_directories(src/Platform/OSX)
+include_directories(src/Platform/Posix)
 else()
 include_directories(src/Platform/Linux)
+include_directories(src/Platform/Posix)
 endif()
 
 set(STATIC ${MSVC} CACHE BOOL "Link libraries statically")
@@ -59,7 +61,7 @@ if(MSVC)
   include_directories(SYSTEM src/platform/msc)
 else()
   if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-    # This option has no effect in glibc version less than 2.20. 
+    # This option has no effect in glibc version less than 2.20.
     # Since glibc 2.20 _BSD_SOURCE is deprecated, this macro is recomended instead
     add_definitions("-D_DEFAULT_SOURCE -D_GNU_SOURCE")
   endif()
@@ -103,7 +105,7 @@ else()
   set(RELEASE_FLAGS "-Ofast -DNDEBUG -Wno-unused-variable")
   if(NOT APPLE)
     # There is a clang bug that does not allow to compile code that uses AES-NI intrinsics if -flto is enabled
-    if (CMAKE_C_COMPILER_ID STREQUAL "GNU" AND CMAKE_SYSTEM_NAME STREQUAL "Linux" 
+    if (CMAKE_C_COMPILER_ID STREQUAL "GNU" AND CMAKE_SYSTEM_NAME STREQUAL "Linux"
         AND CMAKE_BUILD_TYPE STREQUAL "Release" AND ((CMAKE_C_COMPILER_VERSION VERSION_GREATER 4.9) OR (CMAKE_C_COMPILER_VERSION VERSION_EQUAL 4.9)))
       # On linux, to build in lto mode, check that ld.gold linker is used: 'update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold HIGHEST_PRIORITY'
       set(CMAKE_AR gcc-ar)
