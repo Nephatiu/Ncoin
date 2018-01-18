@@ -23,9 +23,7 @@ RPC: 48137
 
 **06. Seed nodes** (src/CryptoNoteConfig.h)
 
-home.ggtm.eu:48537
-lenonine.ggtm.eu:48537
-starincl.ggtm.eu:48537
+*In testing Phase...*
 
 **07. Minimum transaction fee** (src/CryptoNoteConfig.h)
 
@@ -39,6 +37,6 @@ starincl.ggtm.eu:48537
 
 0x1481 // "Nc"
 
-**10. TD Copy the printed transaction hash** (src/CryptoNoteConfig.h)
+**10. Base transaction hash** (src/CryptoNoteConfig.h)
 
 013c01ff00019fba94e910029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121013973f1352b41a2ea4e29c98192e3d8c7bee71058a0f42eb7c04090f7c576e279
