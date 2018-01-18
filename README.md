@@ -14,7 +14,7 @@ This is the reference code for the [Ncoin](http://ncoin.ggtm.eu) CryptoCurrency.
 
 **04. Default ports for P2P and RPC networking** (src/CryptoNoteConfig.h)
 
-P2P: 48537
+P2P: 48537  
 RPC: 48137
 
 **05. Network identifier** (src/P2p/P2pNetworks.h)
@@ -23,7 +23,7 @@ RPC: 48137
 
 **06. Seed nodes** (src/CryptoNoteConfig.h)
 
-*In testing Phase...*
+*In testing phase...*
 
 **07. Minimum transaction fee** (src/CryptoNoteConfig.h)
 
@@ -37,6 +37,6 @@ RPC: 48137
 
 0x1481 // "Nc"
 
-**10. Base transaction hash** (src/CryptoNoteConfig.h)
+**10. TD Copy the printed transaction hash** (src/CryptoNoteConfig.h)
 
 013c01ff00019fba94e910029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd08807121013973f1352b41a2ea4e29c98192e3d8c7bee71058a0f42eb7c04090f7c576e279
